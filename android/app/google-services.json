@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648104104452",
+    "project_id": "rang-e-sindh",
+    "storage_bucket": "rang-e-sindh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648104104452:android:9f796bbc71f69cc67b1b51",
+        "android_client_info": {
+          "package_name": "com.example.range_sindh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBho4LnwT3ouq2-lCE_JnlgPxK1NDgPoQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
