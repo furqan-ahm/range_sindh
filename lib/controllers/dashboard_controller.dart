@@ -12,4 +12,7 @@ class DashboardController extends GetxController{
   TextEditingController sellingPrice=TextEditingController();
 
 
+
+  
+
 }

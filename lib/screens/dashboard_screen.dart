@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:range_sindh/controllers/dashboard_controller.dart';
 import 'package:range_sindh/screens/widgets/add_record_dialog.dart';
 import 'package:range_sindh/screens/widgets/spring_button.dart';
 
@@ -33,6 +34,10 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.didChangeMetrics();
     setState(() {});
   }
+
+
+
+  DashboardController controller = Get.put(DashboardController());
 
   @override
   void initState() {

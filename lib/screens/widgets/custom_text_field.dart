@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomFormField extends StatelessWidget {
   // const CustomFormField({Key? key}) : super(key: key);
@@ -10,11 +11,13 @@ class CustomFormField extends StatelessWidget {
   final Color textFieldBgColor;
   final bool isLabelCenter;
   final TextEditingController? controller;
+  final bool numbersOnly;
   const CustomFormField({
     super.key,
     required this.labelText,
     this.validatorFunction,
     this.controller,
+    this.numbersOnly=false,
     this.primaryColor = Colors.white38,
     this.textColor = Colors.black,
     this.textFieldBgColor = Colors.white38,
@@ -36,6 +39,7 @@ class CustomFormField extends StatelessWidget {
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
+        inputFormatters: numbersOnly?[FilteringTextInputFormatter.allow((RegExp("[.0-9]"))) ]:null,
         cursorColor: Colors.black,
         decoration: InputDecoration(
           filled: true,
