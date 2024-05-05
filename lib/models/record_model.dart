@@ -1,53 +1,91 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
 class RecordModel {
   int index;
-  String docId;
+
   String articleName;
   double fareCost;
   double fabricCost;
   double workingCost;
-  double split;
-  double sellingCost;
+  double sellingPrice;
+  double discount;
+  double soldPrice;
+  DocumentSnapshot? doc;
+
+
+  DateTime? timestamp;
 
   RecordModel({
     required this.index,
-    required this.docId,
     required this.articleName,
     required this.fareCost,
     required this.fabricCost,
     required this.workingCost,
-    required this.split,
-    required this.sellingCost,
+    required this.sellingPrice,
+    this.timestamp,
+     this.discount=0,
+    required this.soldPrice,
   });
 
+  double get totalExpenseWithFabric=>fareCost+fabricCost+workingCost;
+  double get totalExpenseWithioutFabric=>fareCost+fabricCost+workingCost;
+  double get sellingPriceWithoutFabric=>sellingPrice-fabricCost;
 
-  
 
-  factory RecordModel.fromJson(Map<String, dynamic> json) {
+  double get profitEarned=>(soldPrice-totalExpenseWithFabric);
+
+  factory RecordModel.fromJson(Map<String, dynamic> json,) {
     return RecordModel(
       index: json['index'],
-      docId: json['docId'],
       articleName: json['articleName'],
       fareCost: json['fareCost'],
       fabricCost: json['fabricCost'],
       workingCost: json['workingCost'],
-      split: json['split'],
-      sellingCost: json['sellingCost'],
+      discount: json['discount'],
+      sellingPrice: json['sellingPrice'],
+      timestamp: (json['timestamp'] as Timestamp?)?.toDate(),
+      soldPrice: json['soldPrice'],
     );
+  }
+  factory RecordModel.fromDocumentSnapshot(DocumentSnapshot doc) {
+    return RecordModel.fromJson(doc.data() as Map<String, dynamic>)..doc=doc;
   }
 
   Map<String, dynamic> toJson() {
     return {
       'index': index,
-      'docId': docId,
       'articleName': articleName,
       'fareCost': fareCost,
       'fabricCost': fabricCost,
       'workingCost': workingCost,
-      'split': split,
-      'sellingCost': sellingCost,
+      'discount':discount,
+      'sellingCost': sellingPrice,
+      'soldPrice': soldPrice,
     };
   }
 }
+
+
+ List<RecordModel> dummyData = [
+    RecordModel(
+      index: 1,
+      articleName: 'Article 1',
+      fareCost: 10.0,
+      fabricCost: 20.0,
+      workingCost: 15.0,
+      soldPrice: 24,
+      sellingPrice: 50.0,
+    ),
+    RecordModel(
+      index: 2,
+      articleName: 'Article 2',
+      fareCost: 12.0,
+      fabricCost: 25.0,
+      workingCost: 18.0,
+      soldPrice: 24,
+      sellingPrice: 55.0,
+    ),
+    // Add more dummy data as needed
+  ];

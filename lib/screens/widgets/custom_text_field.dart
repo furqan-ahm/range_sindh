@@ -11,14 +11,23 @@ class CustomFormField extends StatelessWidget {
   final Color textFieldBgColor;
   final bool isLabelCenter;
   final TextEditingController? controller;
+  final double order;
   final bool numbersOnly;
+  final bool autofocus;
+
+
+  final void Function(String)? onChanged;
+
   const CustomFormField({
     super.key,
     required this.labelText,
     this.validatorFunction,
+    this.autofocus=false,
     this.controller,
     this.numbersOnly=false,
     this.primaryColor = Colors.white38,
+    this.order=.1,
+    this.onChanged,
     this.textColor = Colors.black,
     this.textFieldBgColor = Colors.white38,
     this.isLabelCenter = false,
@@ -26,62 +35,67 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(8),
-      ),
-      elevation: 1,
-      child: TextFormField(
-        controller: controller,
-        validator: validatorFunction,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
+    return FocusTraversalOrder(
+      order: NumericFocusOrder(order),
+      child: Material(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
         ),
-        inputFormatters: numbersOnly?[FilteringTextInputFormatter.allow((RegExp("[.0-9]"))) ]:null,
-        cursorColor: Colors.black,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: textFieldBgColor,
-          contentPadding: const EdgeInsets.only(left: 12, right: 12),
-          labelStyle: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: textColor.withOpacity(0.5),
+        elevation: 1,
+        child: TextFormField(
+          controller: controller,
+          validator: validatorFunction,
+          autofocus: autofocus,
+          onChanged: onChanged,
+          style: TextStyle(
+            color: textColor,
             fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
-          floatingLabelStyle: TextStyle(color: textColor.withOpacity(0.5)),
-          label: isLabelCenter
-              ? Center(
-                  child: Text(
+          inputFormatters: numbersOnly?[FilteringTextInputFormatter.allow((RegExp("[.0-9]"))) ]:null,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: textFieldBgColor,
+            contentPadding: const EdgeInsets.only(left: 12, right: 12),
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.w400,
+              color: textColor.withOpacity(0.5),
+              fontSize: 16,
+            ),
+            floatingLabelStyle: TextStyle(color: textColor.withOpacity(0.5)),
+            label: isLabelCenter
+                ? Center(
+                    child: Text(
+                      labelText,
+                    ),
+                  )
+                : Text(
                     labelText,
                   ),
-                )
-              : Text(
-                  labelText,
-                ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: primaryColor,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: primaryColor,
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
             ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: textColor.withOpacity(0.5),
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
             ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: textColor.withOpacity(0.5),
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-          ),
-          enabledBorder:  OutlineInputBorder(
-            borderSide: BorderSide(
-              color: textColor.withOpacity(0.5),
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
+            enabledBorder:  OutlineInputBorder(
+              borderSide: BorderSide(
+                color: textColor.withOpacity(0.5),
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
             ),
           ),
         ),

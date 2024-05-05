@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:range_sindh/controllers/dashboard_controller.dart';
+import 'package:range_sindh/screens/widgets/DataTable.dart';
 import 'package:range_sindh/screens/widgets/add_record_dialog.dart';
 import 'package:range_sindh/screens/widgets/spring_button.dart';
 
@@ -188,67 +189,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ),
                       ),
                       const Divider(),
-                      Align(
+                      const Align(
                         alignment: Alignment.topLeft,
-                        child: Scrollbar(
-                          scrollbarOrientation: ScrollbarOrientation.top,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: const [
-                                DataColumn(
-                                  label: Text("Sr.no"),
-                                ),
-                                DataColumn(
-                                  label: Text("Article\nName"),
-                                ),
-                                DataColumn(
-                                  label: Text("Fabric\nCost"),
-                                ),
-                                DataColumn(
-                                  label: Text("Working\nCost"),
-                                ),
-                                DataColumn(
-                                  label: Text("Expenses+\nFare"),
-                                ),
-                                DataColumn(
-                                  label: Text("Total Expenses\nwith Fabric"),
-                                ),
-                                DataColumn(
-                                  label: Text("Selling Price\nwith Fabric"),
-                                ),
-                                DataColumn(
-                                  label: Text("Total\nExpenses"),
-                                ),
-                                DataColumn(
-                                  label: Text("Selling Price\nw/out Fabric"),
-                                ),
-                                DataColumn(
-                                  label: Text("Profit\nMargin %"),
-                                ),
-                                DataColumn(
-                                  label: Text("Discount %"),
-                                ),
-                                DataColumn(
-                                  label: Text("Final Price"),
-                                ),
-                                DataColumn(
-                                  label: Text("Profit"),
-                                ),
-                              ],
-                              rows: [
-                                DataRow(
-                                  cells: List.generate(
-                                    13,
-                                    (index) => const DataCell(
-                                      TextField(),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        child:CustomDataTable()
                       ),
                     ],
                   ),
@@ -259,5 +202,15 @@ class _DashboardScreenState extends State<DashboardScreen>
         );
       }),
     );
+  }
+}
+
+
+class ColumnHeaderText extends StatelessWidget {
+  const ColumnHeaderText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text("Profit");
   }
 }
