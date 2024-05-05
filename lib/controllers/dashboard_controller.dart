@@ -9,7 +9,7 @@ import 'package:range_sindh/services/firestore_service.dart';
 class DashboardController extends GetxController {
  
 
-
+  Offset mousePosition=const Offset(0, 0);
   RxList<RecordModel> salesRecord=<RecordModel>[].obs;
 
   Stream<List<RecordModel>> salesRecords=FirestoreService().getSaleRecordsStream();
@@ -25,6 +25,10 @@ class DashboardController extends GetxController {
 
 
 
+  delete(RecordModel record){
+    record.doc!.reference.delete();
+    Get.back();
+  }
 
   @override
   void onClose() {

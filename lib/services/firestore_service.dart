@@ -21,13 +21,11 @@ class FirestoreService extends GetxService {
         .orderBy('timestamp', descending: true)
         .snapshots()
         .map((event) => event.docs
-            .map((e) => RecordModel.fromJson(
-                  e.data(),
+            .map((e) => RecordModel.fromDocumentSnapshot(
+                  e,
                 ))
             .toList());
   }
-
-
 
   
    Future createRecord(Map<String, dynamic> data) async {
